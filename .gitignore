@@ -3,3 +3,6 @@ TestFrame/TestFrame.sln
 TestFrame/Library/
 TestFrame/Logs/
 TestFrame/Temp/
+TestFrame/Assembly-CSharp.csproj
+TestFrame/.idea/
+TestFrame/obj/
