@@ -6,3 +6,6 @@ TestFrame/Temp/
 TestFrame/Assembly-CSharp.csproj
 TestFrame/.idea/
 TestFrame/obj/
+TestFrame/UniRx.csproj
+TestFrame/UniRx.Examples.csproj
+TestFrame/.vs/
