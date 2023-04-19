@@ -8,16 +8,16 @@ namespace SumBorn.Core
         Action<T> _onGet;
         Action<T> _onPush;
 
-        public Pool(Func<T> onCreate, Action<T> onGet, Action<T> onPush)
+        public Pool(Func<T> onCreate=null, Action<T> onGet = null, Action<T> onPush = null)
         {
             _onCreate = onCreate;
             _onGet = onGet;
             _onPush = onPush;
         }
 
-        public override void Clear(bool isReset = true)
+        public override void Clear(bool invokePushAction = true)
         {
-            base.Clear(isReset);
+            base.Clear(invokePushAction);
             _onCreate = null;
             _onGet = null;
             _onPush = null;

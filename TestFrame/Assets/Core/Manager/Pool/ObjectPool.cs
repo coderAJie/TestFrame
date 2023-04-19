@@ -1,35 +1,60 @@
 ﻿using System;
+using SumBorn.Core;
 using UnityEngine;
 
 namespace SumBorn.Manager
 {
     public class ObjectPool : MonoBehaviour
     {
-        private string _name;
         private GameObject _prefab;
-        private Transform _parentTrans;
+        private Pool<GameObject> _pool;
 
-        public ObjectPool(GameObject prefab, Func<GameObject> onCreate, Action<GameObject> onGet, Action<GameObject> onPush, Transform parentTrans = null)
+        private Action<GameObject> _onGet;
+        private Action<GameObject> _onPush;
+
+        public void InitPool(GameObject prefab, Action<GameObject> onGet = null, Action<GameObject> onPush = null)
         {
             _prefab = prefab;
-            _parentTrans = parentTrans;
+            _onGet = onGet;
+            _onPush = onPush;
+            _pool = new Pool<GameObject>(OnCreate, OnGet, OnPush);
         }
 
-        public void Get(GameObject o)
+        public GameObject Get()
         {
+            return _pool.Get();
         }
 
         public void Push(GameObject o)
         {
+            _pool.Push(o);   
         }
 
-        public void Clear(bool isReset = true)
+        public void Clear(bool invokePushAction = true)
         {
+            _pool.Clear(invokePushAction);
+            _pool = null;
+            _onGet = null;
+            _onPush = null;
+            GameObject.Destroy(this.gameObject);
         }
 
-        private GameObject Create()
+        private GameObject OnCreate()
         {
-            return null;
+            return GameObject.Instantiate(_prefab);
+        }
+
+        private void OnGet(GameObject o)
+        {
+            o.transform.SetParent(this.transform);
+            o.SetActive(true);
+            _onGet?.Invoke(o);
+        }
+
+        private void OnPush(GameObject o)
+        {
+            o.SetActive(false);
+            _onPush?.Invoke(o);
         }
     }
 }
