@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface ISingleton
+namespace SumBorn.Core
 {
-    void Initialize();
-    void Release();
+    public interface ISingleton
+    {
+        void Initialize();
+        void Release();
+    }
 }

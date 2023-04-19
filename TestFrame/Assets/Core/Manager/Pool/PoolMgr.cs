@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SumBorn.Core;
 
-public class PoolMgr : MonoBehaviour
+namespace SumBorn.Manager
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PoolMgr : Singleton<PoolMgr>
     {
-        
-    }
+        public override void Initialize()
+        {
+            base.Initialize();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public override void Release()
+        {
+            base.Release();
+        }
+
+        public void Log()
+        {
+            Debug.Log("1");
+        }
     }
 }
+

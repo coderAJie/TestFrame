@@ -1,33 +1,35 @@
 using SumBorn.Core;
-using System.Collections;
+using SumBorn.Manager;
 using System.Collections.Generic;
-using UnityEditor.Presets;
 using UnityEngine;
 
 public class TestPoolExample : MonoBehaviour
 {
     private Pool<GameObject> _pool;
     private List<GameObject> _list=new List<GameObject>();
+    private Transform _objListTrans;
 
     void Start()
     {
-        _pool = new Pool<GameObject>(OnCreate, OnInitialize, OnReset);
+        _objListTrans = new GameObject("_objListTrans").transform;
+        _objListTrans.SetParent(transform);
+        _pool = new Pool<GameObject>(OnCreate, OnGet, OnPush);
     }
 
     private GameObject OnCreate()
     {
         GameObject o = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        o.transform.SetParent(this.transform);
+        o.transform.SetParent(_objListTrans);
         return o;
     }
 
-    private void OnInitialize(GameObject o)
+    private void OnGet(GameObject o)
     {
         o.SetActive(true);
         o.name = "PoolCube";
     }
 
-    private void OnReset(GameObject o)
+    private void OnPush(GameObject o)
     {
         o.SetActive(false);
         o.name = "PoolCubedisabled";
@@ -37,12 +39,15 @@ public class TestPoolExample : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject o = _pool.Get();
-            _list.Add(o);
+            if (_pool != null)
+            {
+                GameObject o = _pool.Get();
+                _list.Add(o);
+            }
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (_list.Count > 0)
+            if (_list.Count > 0 && _pool != null)
             {
                 GameObject o = _list[0];
                 _list.RemoveAt(0);
@@ -51,7 +56,14 @@ public class TestPoolExample : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            _pool.Clear();
+            if(_pool != null)
+            {
+                _pool.Clear();
+                _pool = null;
+                Destroy(_objListTrans.gameObject);
+            }
         }
     }
 }
+
+

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using SumBorn.Core;
 using UnityEngine;
 
 public class TestSingletonMgr : Singleton<TestSingletonMgr>

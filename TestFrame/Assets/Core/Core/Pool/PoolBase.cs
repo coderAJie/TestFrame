@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace SumBorn.Core
 {
@@ -11,39 +8,38 @@ namespace SumBorn.Core
 
         public T Get()
         {
-            if (_stack.Count == 0) _stack.Push(Create());
+            if (_stack.Count == 0) _stack.Push(OnCreate());
             T o = _stack.Pop();
-            Initialize(o);
+            OnGet(o);
             return o;
         }
 
         public void Push(T o)
         {
-            Destroy(o);
+            OnPush(o);
             _stack.Push(o);
         }
 
-        public virtual void Clear(bool isReset=true)
+        public virtual void Clear(bool invokePushAction = true)
         {
-            if (isReset)
+            if (invokePushAction)
             {
-                Debug.Log("isReset");
                 foreach (T t in _stack)
-                    Destroy(t);
+                    OnPush(t);
             }
             _stack.Clear();
         }
 
-        protected virtual T Create()
+        protected virtual T OnCreate()
         {
             return default(T);
         }
 
-        protected virtual void Initialize(T o)
+        protected virtual void OnGet(T o)
         {
         }
 
-        protected virtual void Destroy(T o)
+        protected virtual void OnPush(T o)
         {
         }
     }

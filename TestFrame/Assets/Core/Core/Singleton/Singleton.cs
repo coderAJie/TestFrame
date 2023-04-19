@@ -1,29 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
-public abstract class Singleton<T> :ISingleton where T : new()
+namespace SumBorn.Core
 {
-    private static T _instance;
-    public static T Instance
+    public abstract class Singleton<T> : ISingleton where T : new()
     {
-        get
+        private static T _instance;
+        public static T Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = new T();
-                SingletonMgr.Instance.Initialize(_instance as ISingleton);
+                if (_instance == null)
+                {
+                    _instance = new T();
+                    SingletonMgr.Instance.Initialize(_instance as ISingleton);
+                }
+                return _instance;
             }
-            return _instance;
+        }
+
+        public virtual void Initialize()
+        {
+        }
+
+        public virtual void Release()
+        {
         }
     }
-
-    public virtual void Initialize()
-    {
-    }
-
-    public virtual void Release()
-    {
-    }
 }
+
