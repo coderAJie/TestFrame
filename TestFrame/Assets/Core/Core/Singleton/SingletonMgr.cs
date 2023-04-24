@@ -16,13 +16,15 @@ namespace SumBorn.Core
                 if (_isInitialize) return;
                 _isInitialize = true;
                 _rootTrans = new GameObject(singleton.GetType().ToString()).transform;
+                singleton.SingletonTrans = _rootTrans;
                 _dic.Add(singleton, _rootTrans);
             }
             else
             {
-                singleton.Initialize();
                 Transform o = new GameObject(singleton.GetType().ToString()).transform;
                 o.transform.SetParent(_rootTrans);
+                singleton.SingletonTrans = o;
+                singleton.Initialize();
                 _dic.Add(singleton, o);
             }
         }

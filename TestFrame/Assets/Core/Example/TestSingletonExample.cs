@@ -16,9 +16,16 @@ public class TestSingletonMgr : Singleton<TestSingletonMgr>
 
 public class TestSingletonExample : MonoBehaviour
 {
-    void Start()
+    private void Update()
     {
-        TestSingletonMgr.Instance.TestDebug();
-        SingletonMgr.Instance.Release(TestSingletonMgr.Instance);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            TestSingletonMgr.Instance.TestDebug();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SingletonMgr.Instance.Release(TestSingletonMgr.Instance);
+        }
     }
 }

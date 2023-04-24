@@ -1,5 +1,4 @@
-﻿using SumBorn.Core;
-using SumBorn.Manager;
+﻿using SumBorn.Manager;
 using System.Collections.Generic;
 using UnityEngine;
 

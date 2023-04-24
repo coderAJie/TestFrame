@@ -1,56 +1,57 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoLifeItem : MonoBehaviour
+namespace SumBorn.Manager
 {
-    private event Action _updateEvent;
-    private event Action _lateUpdateEvent;
-    private event Action _fixedUpdateEvent;
-
-    public void AddUpdate(Action action)
+    public class MonoLifeItem : MonoBehaviour
     {
-        _updateEvent += action;
-    }
+        private event Action _updateEvent;
+        private event Action _lateUpdateEvent;
+        private event Action _fixedUpdateEvent;
 
-    public void RemoveUpdate(Action action)
-    {
-        _updateEvent -= action;
-    }
+        public void AddUpdate(Action action)
+        {
+            _updateEvent += action;
+        }
 
-    public void AddFixedUpdate(Action action)
-    {
-        _fixedUpdateEvent += action;
-    }
+        public void RemoveUpdate(Action action)
+        {
+            _updateEvent -= action;
+        }
 
-    public void RemoveFixedUpdate(Action action)
-    {
-        _fixedUpdateEvent -= action;
-    }
+        public void AddFixedUpdate(Action action)
+        {
+            _fixedUpdateEvent += action;
+        }
 
-    public void AddLateUpdate(Action action)
-    {
-        _lateUpdateEvent += action;
-    }
+        public void RemoveFixedUpdate(Action action)
+        {
+            _fixedUpdateEvent -= action;
+        }
 
-    public void RemoveLateUpdate(Action action)
-    {
-        _lateUpdateEvent -= action;
-    }
+        public void AddLateUpdate(Action action)
+        {
+            _lateUpdateEvent += action;
+        }
 
-    void Update()
-    {
-        _updateEvent?.Invoke();
-    }
+        public void RemoveLateUpdate(Action action)
+        {
+            _lateUpdateEvent -= action;
+        }
 
-    void FixedUpdate()
-    {
-        _fixedUpdateEvent?.Invoke();
-    }
+        void Update()
+        {
+            _updateEvent?.Invoke();
+        }
 
-    private void LateUpdate()
-    {
-        _lateUpdateEvent?.Invoke();
+        void FixedUpdate()
+        {
+            _fixedUpdateEvent?.Invoke();
+        }
+
+        private void LateUpdate()
+        {
+            _lateUpdateEvent?.Invoke();
+        }
     }
 }

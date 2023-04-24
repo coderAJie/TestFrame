@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using SumBorn.Core;
 using System;
+using UnityEngine;
 
 namespace SumBorn.Manager
 {
     public class PoolMgr : Singleton<PoolMgr>
     {
-        private readonly string ObjectPoolName = "[ObjectPool]:";
         public ObjectPool GetObjectPool(GameObject prefab,Action<GameObject> onGet,Action<GameObject> onPush)
         {
-            GameObject o = new GameObject(ObjectPoolName + prefab.name);
+            GameObject o = new GameObject(typeof(ObjectPool).ToString() +":"+ prefab.name);
+            o.transform.SetParent(SingletonTrans);
             ObjectPool pool = o.AddComponent<ObjectPool>();
             pool.InitPool(prefab, onGet, onPush);
             return pool;

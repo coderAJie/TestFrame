@@ -1,7 +1,11 @@
+using UnityEngine;
+
 namespace SumBorn.Core
 {
     public abstract class Singleton<T> : ISingleton where T : new()
     {
+        public Transform SingletonTrans { get; set; }
+
         private static T _instance;
         public static T Instance
         {
@@ -18,10 +22,12 @@ namespace SumBorn.Core
 
         public virtual void Initialize()
         {
+
         }
 
         public virtual void Release()
         {
+            _instance = default(T);
         }
     }
 }
