@@ -5,6 +5,21 @@ using UnityEngine;
 
 public static class Utils
 {
+    #region Log
+
+    public static string Log(object[] values)
+    {
+        string s = "";
+        foreach (var item in values)
+        {
+            s += item.ToString() + ",";
+        }
+        return s;
+    }
+
+    #endregion
+
+
     #region DateTime
     public static string GetDate(long time)
     {
